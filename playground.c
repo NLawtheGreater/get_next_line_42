@@ -10,10 +10,14 @@
 int	main()
 {
 	char	*line;
-	int		fd;
+	int		fd1;
+	int		fd2;
+	int		fd3;
 	///char		*buff;
 	
-	fd = open("./text.txt", O_RDONLY);
+	fd1 = open("./text1.txt", O_RDONLY);
+	fd2 = open("./text2.txt", O_RDONLY);
+	fd3 = open("./text3.txt", O_RDONLY);
 	
 	/*line = (char *) malloc(BUFFER_SIZE + 1);
 	int	i;
@@ -24,11 +28,20 @@ int	main()
 	}
 	printf("\n");*/
 	do {
-		line = get_next_line(fd);
+		line = get_next_line(fd1);
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd2);
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd3);
 		printf("%s", line);
 		free(line);
 	} while (line);
-	close(fd);
+	
+	close(fd1);
+	close(fd2);
+	close(fd3);
 
 	return (0);
 }
