@@ -1,46 +1,68 @@
 #include "get_next_line.h"
 
-/*char	*large(char *buff, char *linked, int check, int multi)
+char	*readtext(char *linked, int *lcheck, int fd)
 {
-	int	i;
+	char	*buff;
+	int		check;
 
-	if (!linked)
+	buff = malloc(BUFFER_SIZE + 1);
+	if (!buff)
+		return (NULL);
+	while (*lcheck < 0)
 	{
-		linked = malloc(check + 1);
-		i = 0;
-		while (*(buff + i))
+		check = read(fd, buff, BUFFER_SIZE);
+		if (check == -1)
+			return (destroy (buff, linked));
+		else
 		{
-			*(linked + i) = *(buff + i);
-			i++;
+			linked = storebuff(linked, buff, check);
+			*lcheck = line_check(linked);
+			if (check < BUFFER_SIZE && *linked != '\0' && *lcheck == -1)
+				*lcheck = ft_strlen(linked) - 1;
+			if (check == 0 && *linked == '\0')
+				return (destroy (buff, linked));
 		}
 	}
+	free (buff);
+	return (linked);
+}
+
+/*char	*storage(char *linked, char *buff, int *check, int *lcheck)
+{
+	char	*line;	
+
+	if (*check < BUFFER_SIZE && *linked != '\0')
+	{
+		linked = storebuff(linked, buff, *check);
+		*lcheck = line_check(linked);
+		if (*lcheck == -1)
+			*lcheck = ft_strlen(linked) - 1;
+		line = fill_line(linked, *lcheck);
+		if (line)
+			del_done(linked, *lcheck);
+		free(buff);
+		return (line);
+	}
+	else if (*check == 0 && *linked == '\0')
+		return (destroy (buff, linked));
 	else
 	{
-		linked = ft_realloc()
-
+		linked = storebuff(linked, buff, BUFFER_SIZE);
+		if (!linked)
+		{
+			free (buff);
+			return (NULL);
+		}
+		*lcheck = line_check(linked);
 	}
-}
-*/
-char *storebuff(char *linked, char *buff, int store)
+}*/
+
+void	*destroy(char *buff, char *linked)
 {
-	int	i;
-	int j;
-
-	if (*buff == '\0')
-		return (linked);
-	j = ft_strlen (buff);
-	
-	i = ft_strlen (linked);
-	linked = ft_realloc (linked, sizeof(char) * (i + j + 1));
-	j = 0;
-	while (j < store && *(buff + j) != '\0')
-	{
-		*(linked + i) = *(buff + j);
-		i++;
-		j++;
-	}
-	*(linked + i) = '\0';
-	return (linked);
+	free(buff);
+	if (linked)
+		free(linked);
+	return (NULL);
 }
 
 size_t	ft_strlen(char const *str)
@@ -54,56 +76,6 @@ size_t	ft_strlen(char const *str)
 		len++;
 	}
 	return (len);
-}
-
-int	line_check(char const *linked)
-{
-	int	i;
-
-	i = 0;
-	while (*(linked + i) != '\0')
-	{
-		if (*(linked + i) == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-char *fill_line(char *linked, int lcheck)
-{
-	char	*line;
-
-	line = (char *) malloc (sizeof(char) * (lcheck + 2));
-	if (!line)
-		return (NULL);
-	*(line + lcheck + 1) = '\0'; 
-	while (lcheck >= 0)
-	{
-		*(line + lcheck) = *(linked + lcheck);
-		lcheck--;
-	}
-	return (line);
-}
-
-void del_done(char *linked, int lcheck)
-{
-	int	i;
-	int	j;
-
-	i = ft_strlen (linked);
-	if (i > (lcheck + 1))
-	{
-		j = 0;
-		while (*(linked + lcheck + 1 + j) != '\0')
-		{
-			*(linked + j) = *(linked + lcheck + 1 + j);
-			j++;
-		}
-		*(linked + j) = '\0';
-	}
-	else if (i == (lcheck + 1))
-		*linked = '\0';
 }
 
 static void	*ft_memcpy_x(void *dst, const void *src)
@@ -124,7 +96,9 @@ void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*ptr_new;
 
-	if (*(char *) ptr  == '\0')
+	if (!ptr)
+		return (malloc(size));
+	if (*(char *) ptr == '\0')
 	{
 		free (ptr);
 		return (malloc(size));

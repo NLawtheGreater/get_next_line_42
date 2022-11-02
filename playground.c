@@ -27,9 +27,7 @@ int	main()
 		line = get_next_line(fd);
 		printf("%s", line);
 		free(line);
-				
-	}
-	while (line);
+	} while (line);
 	close(fd);
 
 	return (0);
