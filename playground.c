@@ -11,32 +11,27 @@ int	main()
 {
 	char	*line;
 	int		fd;
-
-	line = malloc(500);
-	fd = open("text.txt", O_RDONLY);
-	fd = 0;
-	/*printf("%ld\n", read(fd, line, 61));
-	*/
+	///char		*buff;
 	
+	fd = open("./text.txt", O_RDONLY);
+	
+	/*line = (char *) malloc(BUFFER_SIZE + 1);
+	int	i;
+	for (i = 1; i <= 4; i++)
+	{
+	read (fd, line, BUFFER_SIZE);
+	printf("%s", line);
+	}
+	printf("\n");*/
 	do {
 		line = get_next_line(fd);
-		if (line)
-		{
 		printf("%s", line);
-		}
+		free(line);
+				
 	}
 	while (line);
-	free (line);
+	close(fd);
 
-	/*printf("1234567890123456789012345678901234567890");
-	do {
-		line = get_next_line(0);
-		if (line)
-		{
-		printf("%s", line);
-		}
-	}
-	while (line);*/
 	return (0);
 }
 //0x5645a5e5c004

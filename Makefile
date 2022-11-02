@@ -23,7 +23,7 @@ SRCS	= ${addprefix ${SRCDIR}, ${SRCLIST}}
 
 CC	= gcc
 
-CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=4
+CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=1
 
 RM	= rm -f
 
@@ -59,5 +59,5 @@ test: all
 	./playground
 
 mem: 
-	${CC} -g -Wall -Wextra -include ${INCH} playground.c ${NAME} -o playground
-	valgrind -v --leak-check=full ./playground
+	${CC} ${CFLAGS} ${INCH} playground.c ${NAME} -o playground
+	valgrind -s --leak-check=full ./playground

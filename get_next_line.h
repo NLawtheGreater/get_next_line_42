@@ -13,7 +13,7 @@ typedef struct s_collect
 
 char *get_next_line(int fd);
 void *ft_realloc(void *ptr, size_t size);
-char	*storebuff(char *linked, char *buff);
+char	*storebuff(char *linked, char *buff, int store);
 size_t	ft_strlen(char const *str);
 int	line_check(char const *linked);
 char *fill_line(char *linked, int lcheck);

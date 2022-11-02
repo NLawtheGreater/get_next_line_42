@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*large(char *buff, char *linked, int check, int multi)
+/*char	*large(char *buff, char *linked, int check, int multi)
 {
 	int	i;
 
@@ -20,34 +20,24 @@ char	*large(char *buff, char *linked, int check, int multi)
 
 	}
 }
-
-char	*storebuff(char *linked, char *buff)
+*/
+char *storebuff(char *linked, char *buff, int store)
 {
 	int	i;
 	int j;
 
-	if (!buff)
+	if (*buff == '\0')
 		return (linked);
 	j = ft_strlen (buff);
-	if (!linked)
+	
+	i = ft_strlen (linked);
+	linked = ft_realloc (linked, sizeof(char) * (i + j + 1));
+	j = 0;
+	while (j < store && *(buff + j) != '\0')
 	{
-		i = 0;
-		linked = malloc (j + 1);
-		if (!linked)
-			return (NULL);
-		*linked = 0;
-	}
-	else
-	{
-		i = ft_strlen (linked);
-		linked = ft_realloc (linked, i + j + 1);
-	}
-	//*buff has '\0'*?
-	while (*buff != '\0')
-	{
-		*(linked + i) = *buff;
+		*(linked + i) = *(buff + j);
 		i++;
-		buff++;
+		j++;
 	}
 	*(linked + i) = '\0';
 	return (linked);
@@ -84,10 +74,9 @@ char *fill_line(char *linked, int lcheck)
 {
 	char	*line;
 
-	line = malloc (lcheck + 2);
+	line = (char *) malloc (sizeof(char) * (lcheck + 2));
 	if (!line)
 		return (NULL);
-	*line = 0; 
 	*(line + lcheck + 1) = '\0'; 
 	while (lcheck >= 0)
 	{
@@ -114,7 +103,7 @@ void del_done(char *linked, int lcheck)
 		*(linked + j) = '\0';
 	}
 	else if (i == (lcheck + 1))
-		linked = NULL;
+		*linked = '\0';
 }
 
 static void	*ft_memcpy_x(void *dst, const void *src)
@@ -135,12 +124,15 @@ void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*ptr_new;
 
-	if (!ptr)
+	if (*(char *) ptr  == '\0')
+	{
+		free (ptr);
 		return (malloc(size));
+	}
 	ptr_new = malloc(size);
 	if (!ptr_new)
 		return (NULL);
-	ft_memcpy(ptr_new, ptr);
+	ft_memcpy_x(ptr_new, ptr);
 	free(ptr);
 	return (ptr_new);
 }
