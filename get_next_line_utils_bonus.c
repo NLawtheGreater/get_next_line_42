@@ -38,36 +38,6 @@ char	*readtext(char *linked, int *lcheck, int fd)
 	return (linked);
 }
 
-/*char	*storage(char *linked, char *buff, int *check, int *lcheck)
-{
-	char	*line;	
-
-	if (*check < BUFFER_SIZE && *linked != '\0')
-	{
-		linked = storebuff(linked, buff, *check);
-		*lcheck = line_check(linked);
-		if (*lcheck == -1)
-			*lcheck = ft_strlen(linked) - 1;
-		line = fill_line(linked, *lcheck);
-		if (line)
-			del_done(linked, *lcheck);
-		free(buff);
-		return (line);
-	}
-	else if (*check == 0 && *linked == '\0')
-		return (destroy (buff, linked));
-	else
-	{
-		linked = storebuff(linked, buff, BUFFER_SIZE);
-		if (!linked)
-		{
-			free (buff);
-			return (NULL);
-		}
-		*lcheck = line_check(linked);
-	}
-}*/
-
 void	*destroy(char *buff, char *linked)
 {
 	free(buff);

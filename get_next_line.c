@@ -44,6 +44,8 @@ char	*fill_line(char *linked, int lcheck)
 {
 	char	*line;
 
+	if (lcheck < 0)
+		return (NULL);
 	line = (char *) malloc (sizeof(char) * (lcheck + 2));
 	if (!line)
 		return (NULL);

@@ -44,6 +44,8 @@ char	*fill_line(char *linked, int lcheck)
 {
 	char	*line;
 
+	if (lcheck < 0)
+		return (NULL);
 	line = (char *) malloc (sizeof(char) * (lcheck + 2));
 	if (!line)
 		return (NULL);
@@ -93,22 +95,26 @@ void	del_done(char *linked, int lcheck)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*linked;
+	static char	*linked[20];
+	char		*new;
 	int			lcheck;
 
-	if (!linked)
-	{
-		linked = malloc(sizeof(char) * (2));
-		if (!linked)
-			return (NULL);
-		*linked = 0 ;
-	}
-	lcheck = -1;
-	linked = readtext(linked, &lcheck, fd);
-	if (!linked)
+	if (fd != 0 && !(fd >= 2 && fd <= 19))
 		return (NULL);
-	line = fill_line(linked, lcheck);
+	lcheck = -1;
+	if (!linked[fd])
+	{
+		new = malloc(sizeof(char) * (2));
+		if (!new)
+			return (NULL);
+		*new = 0;
+		linked[fd] = new;
+	}
+	linked[fd] = readtext(linked[fd], &lcheck, fd);
+	if (!linked[fd])
+		return (linked[fd]);
+	line = fill_line(linked[fd], lcheck);
 	if (line)
-		del_done(linked, lcheck);
+		del_done(linked[fd], lcheck);
 	return (line);
 }

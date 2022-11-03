@@ -16,9 +16,9 @@ BUILD =	./build/
 OBJS	=	${SRCS:%.c=%.o}
 BONUS_OBJS = ${BONUS_SRC:.c=.o}
 INCH	= get_next_line.h 
-INCHB	= 
+INCHB	= get_next_line_bonus.h
 
-BONUS_SRC	=  
+BONUS_SRC	=  playground.c get_next_line_bonus.c get_next_line_utils_bonus.c
 SRCS	= ${addprefix ${SRCDIR}, ${SRCLIST}}
 
 CC	= gcc
@@ -34,7 +34,7 @@ NAME	= get.a
 	${CC} ${CFLAGS} -include ${INCH} -c $< -o ${addprefix ${BUILD}, ${<:.c=.o}}
 
 %bonus.o:	%bonus.c ${INCHB}
-	${CC} ${CFLAGS} -include ${INCHB} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -include ${INCHB} -c $< -o ${addprefix ${BUILD}, ${<:.c=.o}}
 
 ${NAME}:	${OBJS} 
 	ar -crs ${NAME} ${addprefix ${BUILD}, ${OBJS}}
@@ -52,10 +52,17 @@ re:	fclean all
 
 .PHONY:	all clean fclean re  
 
-bonus: all
+bonus:	${BONUS_OBJS}
+	ar -crs ${NAME} ${addprefix ${BUILD}, ${BONUS_OBJS}}
+	@echo "Linking Done!" 
+	${CC} ${CFLAGS} ${INCHB} playground.c ${NAME} -o playground
+	./playground
+
+bmem:
+	valgrind -s --leak-check=full --track-origins=yes ./playground
+bre:	fclean bonus
 
 test: all	
-	${CC} ${CFLAGS} ${INCH} playground.c ${NAME} -o playground
 	./playground
 
 mem: 

@@ -6,43 +6,78 @@
 #include <fcntl.h>
 #include "get_next_line.h"
 
+int same_string(char *expected, char *actual)
+{
+	if (expected == NULL && actual == NULL)
+		printf("%d\n", 1);
+	if ((expected == NULL && actual != NULL) || (expected != NULL && actual == NULL))
+	{
+		printf("%s\n", "error");
+	}
+	if (strcmp(expected, actual) != 0)
+	{
+		printf("%s\n", "error");
+	}
+	else
+		printf("good\n");
+	return 1;
+}
 
 int	main()
 {
-	char	*line;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-	///char		*buff;
-	
-	fd1 = open("./text1.txt", O_RDONLY);
-	fd2 = open("./text2.txt", O_RDONLY);
-	fd3 = open("./text3.txt", O_RDONLY);
-	
-	/*line = (char *) malloc(BUFFER_SIZE + 1);
-	int	i;
-	for (i = 1; i <= 4; i++)
-	{
-	read (fd, line, BUFFER_SIZE);
-	printf("%s", line);
-	}
-	printf("\n");*/
-	do {
-		line = get_next_line(fd1);
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd2);
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd3);
-		printf("%s", line);
-		free(line);
-	} while (line);
-	
-	close(fd1);
-	close(fd2);
-	close(fd3);
-
+	/*char *name = "text1.txt";
+		int fd_1 = open(name, O_RDONLY);
+		int fd_2 = open(name, O_RDONLY);
+		
+		printf ("%s", get_next_line(fd_1));
+		 //same_string(tmp, "0123456789\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), "0123456789\n");
+		printf ("%s", get_next_line(fd_1));
+		 //same_string(get_next_line(fd_1), "012345678\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), "012345678\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), "90123456789\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), "0123456789\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), "xxxx\n");
+		printf ("%s", get_next_line(fd_2));
+		 //same_string(get_next_line(fd_2), NULL);
+		printf ("%s", get_next_line(fd_1));
+		 //same_string(get_next_line(fd_1), "90123456789\n");
+		printf ("%s", get_next_line(fd_1));
+		 //same_string(get_next_line(fd_1), "0123456789\n");
+		printf ("%s", get_next_line(fd_1));
+		 same_string(get_next_line(fd_1), "xxxx\n");
+		printf ("%s", get_next_line(fd_1));
+		 //same_string(get_next_line(fd_1), NULL);
+	*/
+		int fd = open("./text1.txt", O_RDONLY);
+		printf("%d\n",fd);
+		   same_string(get_next_line(fd), "aaaaaaaaaa\n");
+		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
+		close(fd);
+		char *temp;
+		do
+		{
+			temp = get_next_line(fd);
+			free(temp);
+		} while (temp != NULL);
+			  //same_string(get_next_line(fd), NULL);
+		fd = open("./text1.txt", O_RDONLY);
+		printf("%s", get_next_line(fd));	   
+		printf("%s", get_next_line(fd));	   
+		printf("%s", get_next_line(fd));	   
+		printf("%s", get_next_line(fd));	   
+		printf("%s", get_next_line(fd));	   
+	/*	   same_string(get_next_line(fd), "aaaaaaaaaa\n");
+		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
+		   same_string(get_next_line(fd), "cccccccccc\n");
+		   same_string(get_next_line(fd), "dddddddddd\n");
+		   same_string(get_next_line(fd), NULL);
+	*/
 	return (0);
 }
 //0x5645a5e5c004
