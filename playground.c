@@ -54,7 +54,10 @@ int	main()
 		printf ("%s", get_next_line(fd_1));
 		 //same_string(get_next_line(fd_1), NULL);
 	*/
-		int fd = open("./text1.txt", O_RDONLY);
+		char *buff = malloc(BUFFER_SIZE);
+		read(2, buff, BUFFER_SIZE);
+		printf("%s", buff);
+		/*int fd = open("./text1.txt", O_RDONLY);
 		printf("%d\n",fd);
 		   same_string(get_next_line(fd), "aaaaaaaaaa\n");
 		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
@@ -66,12 +69,18 @@ int	main()
 			free(temp);
 		} while (temp != NULL);
 			  //same_string(get_next_line(fd), NULL);
-		fd = open("./text1.txt", O_RDONLY);
+		*/ 
+		/*int fd = open("./text1.txt", O_RDONLY);
 		printf("%s", get_next_line(fd));	   
 		printf("%s", get_next_line(fd));	   
 		printf("%s", get_next_line(fd));	   
 		printf("%s", get_next_line(fd));	   
-		printf("%s", get_next_line(fd));	   
+		printf("%s", get_next_line(fd));
+		close(fd);
+		printf("%s", get_next_line(2));*/
+		//printf("%s", get_next_line(1));
+		//printf("%s", get_next_line(2));
+		//printf("%s", get_next_line(3));
 	/*	   same_string(get_next_line(fd), "aaaaaaaaaa\n");
 		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
 		   same_string(get_next_line(fd), "cccccccccc\n");

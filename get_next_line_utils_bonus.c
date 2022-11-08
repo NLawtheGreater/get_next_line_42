@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*readtext(char *linked, int *lcheck, int fd)
 {
@@ -24,7 +24,7 @@ char	*readtext(char *linked, int *lcheck, int fd)
 	{
 		check = read(fd, buff, BUFFER_SIZE);
 		if (check == -1)
-			return (destroy (buff, linked));
+			return (dump (buff, linked));
 		else
 		{
 			linked = storebuff(linked, buff, check);
@@ -32,14 +32,14 @@ char	*readtext(char *linked, int *lcheck, int fd)
 			if (check < BUFFER_SIZE && *linked != '\0' && *lcheck == -1)
 				*lcheck = ft_strlen(linked) - 1;
 			if (check == 0 && *linked == '\0')
-				return (destroy (buff, linked));
+				return (dump (buff, linked));
 		}
 	}
 	free (buff);
 	return (linked);
 }
 
-void	*destroy(char *buff, char *linked)
+void	*dump(char *buff, char *linked)
 {
 	free(buff);
 	if (linked)

@@ -9,7 +9,7 @@
 /*   Updated: 2022/11/03 16:06:13 by niclaw           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*1.Create pointer 
 **2.
@@ -95,11 +95,11 @@ void	del_done(char *linked, int lcheck)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*linked[20];
+	static char	*linked[5000];
 	char		*new;
 	int			lcheck;
 
-	if (fd != 0 && !(fd >= 2 && fd <= 19))
+	if (fd != 0 && !(fd >= 1 && fd <= 19))
 		return (NULL);
 	lcheck = -1;
 	if (!linked[fd])

@@ -23,7 +23,7 @@ SRCS	= ${addprefix ${SRCDIR}, ${SRCLIST}}
 
 CC	= gcc
 
-CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=10
+CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=-66
 
 RM	= rm -f
 
@@ -62,7 +62,8 @@ bmem:
 	valgrind -s --leak-check=full --track-origins=yes ./playground
 bre:	fclean bonus
 
-test: all	
+test: all
+	${CC} ${CFLAGS} ${INCH} playground.c ${NAME} -o playground	
 	./playground
 
 mem: 
