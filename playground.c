@@ -25,11 +25,26 @@ int same_string(char *expected, char *actual)
 
 int	main()
 {
+	int fd = open("./text1.txt", O_RDONLY);
+	int ffd = open("./text2.txt", O_RDONLY);
+	char *blah;
+	blah = 0;  
+	blah = get_next_line(fd);
+	printf ("%s", blah);
+	free(blah);
+	blah = get_next_line(ffd);
+	printf ("%s", blah);
+	free(blah);
+	blah = get_next_line(fd);
+	printf ("%s", blah);
+	free(blah);
+	blah = get_next_line(ffd);
+	printf ("%s", blah);
+	free(blah);
 	/*char *name = "text1.txt";
 		int fd_1 = open(name, O_RDONLY);
 		int fd_2 = open(name, O_RDONLY);
 		
-		printf ("%s", get_next_line(fd_1));
 		 //same_string(tmp, "0123456789\n");
 		printf ("%s", get_next_line(fd_2));
 		 //same_string(get_next_line(fd_2), "0123456789\n");
@@ -53,11 +68,11 @@ int	main()
 		 same_string(get_next_line(fd_1), "xxxx\n");
 		printf ("%s", get_next_line(fd_1));
 		 //same_string(get_next_line(fd_1), NULL);
-	*/
+	*//*
 		char *buff = malloc(BUFFER_SIZE);
 		read(2, buff, BUFFER_SIZE);
 		printf("%s", buff);
-		/*int fd = open("./text1.txt", O_RDONLY);
+		int fd = open("./text1.txt", O_RDONLY);
 		printf("%d\n",fd);
 		   same_string(get_next_line(fd), "aaaaaaaaaa\n");
 		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
@@ -77,11 +92,11 @@ int	main()
 		printf("%s", get_next_line(fd));	   
 		printf("%s", get_next_line(fd));
 		close(fd);
-		printf("%s", get_next_line(2));*/
+		printf("%s", get_next_line(2));
 		//printf("%s", get_next_line(1));
 		//printf("%s", get_next_line(2));
 		//printf("%s", get_next_line(3));
-	/*	   same_string(get_next_line(fd), "aaaaaaaaaa\n");
+	*//*	   same_string(get_next_line(fd), "aaaaaaaaaa\n");
 		   same_string(get_next_line(fd), "bbbbbbbbbb\n");
 		   same_string(get_next_line(fd), "cccccccccc\n");
 		   same_string(get_next_line(fd), "dddddddddd\n");

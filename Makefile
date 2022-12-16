@@ -23,7 +23,7 @@ SRCS	= ${addprefix ${SRCDIR}, ${SRCLIST}}
 
 CC	= gcc
 
-CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=-66
+CFLAGS	= -g -Wall -Wextra -Werror -D BUFFER_SIZE=500
 
 RM	= rm -f
 

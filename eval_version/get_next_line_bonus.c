@@ -95,11 +95,11 @@ void	del_done(char *linked, int lcheck)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*linked[10000];
+	static char	*linked[5000];
 	char		*new;
 	int			lcheck;
 
-	if (fd != 0 && !(fd >= 1 && fd <= 39))
+	if (fd != 0 && !(fd >= 1 && fd <= 19))
 		return (NULL);
 	lcheck = -1;
 	if (!linked[fd])

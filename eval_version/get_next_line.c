@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niclaw <niclaw@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 16:06:05 by niclaw            #+#    #+#             */
-/*   Updated: 2022/11/03 16:06:13 by niclaw           ###   ########.fr       */
+/*   Created: 2022/11/02 17:17:28 by niclaw            #+#    #+#             */
+/*   Updated: 2022/11/02 17:17:33 by niclaw           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 /*1.Create pointer 
 **2.
@@ -95,26 +95,22 @@ void	del_done(char *linked, int lcheck)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*linked[10000];
-	char		*new;
+	static char	*linked;
 	int			lcheck;
 
-	if (fd != 0 && !(fd >= 1 && fd <= 39))
-		return (NULL);
-	lcheck = -1;
-	if (!linked[fd])
+	if (!linked)
 	{
-		new = malloc(sizeof(char) * (2));
-		if (!new)
+		linked = malloc(sizeof(char) * (2));
+		if (!linked)
 			return (NULL);
-		*new = 0;
-		linked[fd] = new;
+		*linked = 0 ;
 	}
-	linked[fd] = readtext(linked[fd], &lcheck, fd);
-	if (!linked[fd])
-		return (linked[fd]);
-	line = fill_line(linked[fd], lcheck);
+	lcheck = -1;
+	linked = readtext(linked, &lcheck, fd);
+	if (!linked)
+		return (NULL);
+	line = fill_line(linked, lcheck);
 	if (line)
-		del_done(linked[fd], lcheck);
+		del_done(linked, lcheck);
 	return (line);
 }
